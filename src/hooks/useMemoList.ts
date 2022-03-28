@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 
 export const useMemoList = () => {
   const [memos, setMemos] = useState<string[]>([]);
+
   const addTodo = useCallback(
     (text: string) => {
       const newMemos = [...memos];
