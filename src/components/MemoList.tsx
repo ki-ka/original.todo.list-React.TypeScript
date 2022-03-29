@@ -5,16 +5,16 @@ import styled from "styled-components";
 
 type Props = {
   todos: string[];
-  onClickComplete: (index: number) => void;
+  onClickComplete: (index: number) => string;
   onClickDelete: (index: number) => void;
-  onClickReturn: (index: number) => void;
+  onClickReturn: (index: number) => string;
 };
 
 export const MemoList: FC<Props> = (props) => {
   const { todos, onClickComplete, onClickDelete, onClickReturn } = props;
 
   return (
-    <div>
+    <>
       <SContainer>
         <p>未完了のTODO</p>
         <ul>
@@ -43,7 +43,7 @@ export const MemoList: FC<Props> = (props) => {
           ))}
         </ul>
       </SContainer>
-    </div>
+    </>
   );
 };
 

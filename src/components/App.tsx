@@ -24,12 +24,9 @@ export const App: FC = () => {
     setText("");
   };
 
-  const onClickComplete = useCallback(
-    (index: number) => {
-      completedTodo(index);
-    },
-    [completedTodo]
-  );
+  const onClickComplete = (index: number) => {
+    completedTodo(index);
+  };
 
   const onClickDelete = useCallback(
     (index: number) => {
@@ -38,12 +35,9 @@ export const App: FC = () => {
     [deleteTodo]
   );
 
-  const onClickReturn = useCallback(
-    (index: number) => {
-      returnTodo(index);
-    },
-    [returnTodo]
-  );
+  const onClickReturn = (index: number) => {
+    returnTodo(index);
+  };
 
   return (
     <div>
