@@ -6,7 +6,14 @@ import { MemoList } from "./MemoList";
 import { useMemoList } from "../hooks/useMemoList";
 
 export const App: FC = () => {
-  const { memos, addTodo, deleteTodo } = useMemoList();
+  const {
+    todos,
+    addTodo,
+    completedTodo,
+    deleteTodo,
+    returnTodo
+  } = useMemoList();
+
   const [text, setText] = useState<string>("");
 
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) =>
@@ -17,6 +24,13 @@ export const App: FC = () => {
     setText("");
   };
 
+  const onClickComplete = useCallback(
+    (index: number) => {
+      completedTodo(index);
+    },
+    [completedTodo]
+  );
+
   const onClickDelete = useCallback(
     (index: number) => {
       deleteTodo(index);
@@ -24,12 +38,24 @@ export const App: FC = () => {
     [deleteTodo]
   );
 
+  const onClickReturn = useCallback(
+    (index: number) => {
+      returnTodo(index);
+    },
+    [returnTodo]
+  );
+
   return (
     <div>
-      <h1>簡単メモアプリ</h1>
+      <h1>TODOリスト</h1>
       <input type="text" value={text} onChange={onChangeText} />
       <SButton onClick={onClickAdd}>追加</SButton>
-      <MemoList memos={memos} onClickDelete={onClickDelete} />
+      <MemoList
+        todos={todos}
+        onClickComplete={onClickComplete}
+        onClickDelete={onClickDelete}
+        onClickReturn={onClickReturn}
+      />
     </div>
   );
 };

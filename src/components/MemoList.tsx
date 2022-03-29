@@ -4,27 +4,46 @@ import { FC } from "react";
 import styled from "styled-components";
 
 type Props = {
-  memos: string[];
+  todos: string[];
+  onClickComplete: (index: number) => void;
   onClickDelete: (index: number) => void;
+  onClickReturn: (index: number) => void;
 };
 
 export const MemoList: FC<Props> = (props) => {
-  const { memos, onClickDelete } = props;
+  const { todos, onClickComplete, onClickDelete, onClickReturn } = props;
 
   return (
-    <SContainer>
-      <p>メモ一覧</p>
-      <ul>
-        {memos.map((memo, index) => (
-          <li key={memo}>
-            <SMemoWrapper>
-              <p>{memo}</p>
-              <SButton onClick={() => onClickDelete(index)}>削除</SButton>
-            </SMemoWrapper>
-          </li>
-        ))}
-      </ul>
-    </SContainer>
+    <div>
+      <SContainer>
+        <p>未完了のTODO</p>
+        <ul>
+          {todos.map((todo, index) => (
+            <li key={todo}>
+              <SMemoWrapper>
+                <p>{todo}</p>
+                <SButton onClick={() => onClickComplete(index)}>完了</SButton>
+                <SButton onClick={() => onClickDelete(index)}>削除</SButton>
+              </SMemoWrapper>
+            </li>
+          ))}
+        </ul>
+      </SContainer>
+
+      <SContainer>
+        <p>完了のTODO</p>
+        <ul>
+          {todos.map((todo, index) => (
+            <li key={todo}>
+              <SMemoWrapper>
+                <p>{todo}</p>
+                <SButton onClick={() => onClickReturn(index)}>戻す</SButton>
+              </SMemoWrapper>
+            </li>
+          ))}
+        </ul>
+      </SContainer>
+    </div>
   );
 };
 

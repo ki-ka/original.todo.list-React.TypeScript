@@ -1,25 +1,52 @@
 import { useCallback, useState } from "react";
 
 export const useMemoList = () => {
-  const [memos, setMemos] = useState<string[]>([]);
+  const [todos, setIncompleteTodos] = useState<string[]>([]);
+  const [completeTodos, setCompleteTodos] = useState<string[]>([]);
 
   const addTodo = useCallback(
     (text: string) => {
-      const newMemos = [...memos];
-      newMemos.push(text);
-      setMemos(newMemos);
+      const newTodos = [...todos];
+      newTodos.push(text);
+      setIncompleteTodos(newTodos);
     },
-    [memos]
+    [todos]
   );
+
+  const completedTodo = (index: number) => {
+    const newIncompleteTodos = [...todos];
+    newIncompleteTodos.splice(index, 1);
+
+    const newCompleteTodos = [...completeTodos, todos[index]];
+
+    setIncompleteTodos(newIncompleteTodos);
+    setCompleteTodos(newCompleteTodos);
+  };
 
   const deleteTodo = useCallback(
     (index: number) => {
-      const newMemos = [...memos];
-      newMemos.splice(index, 1);
-      setMemos(newMemos);
+      const newTodos = [...todos];
+      newTodos.splice(index, 1);
+      setIncompleteTodos(newTodos);
     },
-    [memos]
+    [todos]
   );
 
-  return { memos, addTodo, deleteTodo };
+  const returnTodo = (index: number) => {
+    const reCompleteTodos = [...completeTodos];
+    reCompleteTodos.splice(index, 1);
+
+    const reIncompleteTodos = [...todos, completeTodos[index]];
+
+    setCompleteTodos(reCompleteTodos);
+    setIncompleteTodos(reIncompleteTodos);
+  };
+
+  return {
+    todos,
+    addTodo,
+    completedTodo,
+    deleteTodo,
+    returnTodo
+  };
 };
